@@ -1,20 +1,33 @@
 import './sources.css';
+import type { SourceCard } from '../../../types/api';
 
 class Sources {
-    draw(data) {
+    public draw(data: SourceCard[]): void {
         const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp');
+        const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
+        const sourcesContainer = document.querySelector<HTMLElement>('.sources');
+
+        if (!sourceItemTemp || !sourcesContainer) {
+            return;
+        }
 
         data.forEach((item) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true);
+            const sourceClone = sourceItemTemp.content.cloneNode(true) as DocumentFragment;
 
-            sourceClone.querySelector('.source__item-name').textContent = item.name;
-            sourceClone.querySelector('.source__item').setAttribute('data-source-id', item.id);
+            const nameElement = sourceClone.querySelector<HTMLElement>('.source__item-name');
 
+            const sourceElement = sourceClone.querySelector<HTMLElement>('.source__item');
+
+            if (!nameElement || !sourceElement) {
+                return;
+            }
+
+            nameElement.textContent = item.name;
+            sourceElement.setAttribute('data-source-id', item.id);
             fragment.append(sourceClone);
         });
 
-        document.querySelector('.sources').append(fragment);
+        sourcesContainer.append(fragment);
     }
 }
 

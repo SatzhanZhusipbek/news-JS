@@ -1,36 +1,38 @@
+export type SourceCard = Readonly<Pick<NewsSource, 'id' | 'name'>>;
+
 export interface NewsSource {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  category: string;
-  language: string;
-  country: string;
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    category: string;
+    language: string;
+    country: string;
 }
 
 export interface SourcesResponse {
-  status: 'ok';
-  sources: NewsSource[];
+    status: 'ok';
+    sources: NewsSource[];
 }
 
 export interface ArticleSource {
-  id: string | null;
-  name: string;
+    id: string | null;
+    name: string;
 }
 
 export interface NewsArticle {
-  source: ArticleSource;
-  author: string | null;
-  title: string;
-  description: string | null;
-  url: string;
-  urlToImage: string | null;
-  publishedAt: string;
-  content: string | null;
+    source: ArticleSource;
+    author: string | null;
+    title: string;
+    description: string | null;
+    url: string;
+    urlToImage: string | null;
+    publishedAt: string;
+    content: string | null;
 }
 
 export interface NewsResponse {
-  status: 'ok';
-  totalResults: number;
-  articles: NewsArticle[];
+    status: 'ok';
+    totalResults: number;
+    articles: NewsArticle[];
 }
