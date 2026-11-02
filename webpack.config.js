@@ -28,7 +28,6 @@ const baseConfig = {
         path: path.resolve(__dirname, './dist'),
     },
     plugins: [
-        new DotenvWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
@@ -41,5 +40,11 @@ module.exports = ({ mode }) => {
     const isProductionMode = mode === 'prod';
     const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
 
-    return merge(baseConfig, envConfig);
+    const config = merge(baseConfig, envConfig);
+
+    if (!isProductionMode) {
+        config.plugins.push(new DotenvWebpackPlugin());
+    }
+
+    return config;
 };
